@@ -1,0 +1,34 @@
+create table customer (
+    cId VARCHAR(5) PRIMARY KEY,
+    cName VARCHAR(50),
+    cAddress TEXT,
+    cSalary DECIMAL(10,2)
+
+);
+
+create table item (
+    iCode VARCHAR(5) PRIMARY KEY,
+    iName VARCHAR(50),
+    iPrice DECIMAL(8,2),
+    iQty INT
+);
+
+create table orders(
+    oId VARCHAR(5) PRIMARY KEY ,
+    oDate DATE ,
+    oTotal DECIMAL(10,2),
+    oSubTotal DECIMAL(10,2),
+    oDiscount INT(3),
+    oBalance DECIMAL(6,2),
+    cId VARCHAR(5),
+    FOREIGN KEY (cId) REFERENCES customer(cid) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+create table orders_item (
+    oId VARCHAR(5),
+    iCode VARCHAR(5),
+    qty INT,
+    PRIMARY KEY (oId , iCode),
+    FOREIGN KEY (oId) REFERENCES orders(oId) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (iCode) REFERENCES item(iCode) ON DELETE CASCADE ON UPDATE CASCADE
+);
